@@ -10,3 +10,16 @@
     100% 100%,
     100% 100%;
 }
+
+.room-floor {
+  background-image:
+    linear-gradient(rgba(216, 195, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(216, 195, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.026) 25%, transparent 25%),
+    radial-gradient(circle at 50% 38%, rgba(184, 137, 255, 0.13), transparent 58%);
+  background-size:
+    var(--tile) var(--tile),
+    var(--tile) var(--tile),
+    var(--tile) var(--tile),
+    100% 100%;
+}
