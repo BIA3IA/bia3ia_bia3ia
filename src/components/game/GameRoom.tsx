@@ -28,11 +28,17 @@ export function GameRoom() {
           </div>
         </Card>
 
-        <section className="room-shell h-(--room-h) w-(--room-w) overflow-hidden rounded-xl border-4 border-room-frame p-(--wall-w) shadow-room [image-rendering:pixelated]">
-          <div className="room-floor size-full border-4 border-room-frame rounded-lg" />
-        </section>
+        {/* Room Container */}
+        <div className="flex w-full flex-col rounded-xl shadow-room">
+          <div className="room-shell z-2 h-(--room-h) w-full overflow-hidden rounded-xl border-4 border-b-0 border-room-frame p-(--wall-w) [image-rendering:pixelated]">
+            <div className="room-floor relative size-full rounded-lg border-4 border-b-0 border-room-frame">
+              <div className="wall-texture absolute inset-x-0 top-0 z-1 h-(--wall-w) border-b-[3px] border-room-frame" />
+            </div>
+          </div>
+          <div className="room-base wall-texture w-full rounded-b-xl border-4 border-t-0 border-room-frame -translate-y-5 z-0" />
+        </div>
 
-        <p className="mt-6 text-center text-md text-fg-muted">
+        <p className="text-center text-md text-fg-muted">
           Built somewhere between purple glow, caffeine and too many open tabs. — 2026
         </p>
       </div>
