@@ -1,4 +1,5 @@
-.room-back-wall {
+.room-shell {
+  background-color: var(--wall-b);
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
@@ -12,6 +13,7 @@
 }
 
 .room-floor {
+  background-color: var(--floor-a);
   background-image:
     linear-gradient(rgba(216, 195, 255, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(216, 195, 255, 0.06) 1px, transparent 1px),
@@ -23,3 +25,4 @@
     var(--tile) var(--tile),
     100% 100%;
 }
+

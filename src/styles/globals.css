@@ -54,9 +54,7 @@
   --room-w: calc(var(--tile) * var(--room-cols));
   --room-h: calc(var(--tile) * var(--room-rows));
 
-  --back-wall-h: calc(var(--tile) * 2.2);
-  --side-wall-w: calc(var(--tile) * 0.7);
-  --front-edge-h: calc(var(--tile) * 0.55);
+  --wall-w: calc(var(--tile) * 0.85);
 
   --room-bg: #07040d;
   --floor-a: #1a1028;

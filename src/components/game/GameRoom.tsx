@@ -28,10 +28,8 @@ export function GameRoom() {
           </div>
         </Card>
 
-        <section className="relative h-(--room-h) w-(--room-w) overflow-hidden rounded-xl border-4 border-room-frame bg-room-bg shadow-room [image-rendering:pixelated]">
-          <div className="room-back-wall h-(--back-wall-h) border-b-4 border-room-frame bg-wall-a" />
-          <div className="room-floor bg-floor-a absolute left-(--side-wall-w) right-(--side-wall-w) top-(--back-wall-h) bottom-(--front-edge-h) rounded-b-lg " />
-
+        <section className="room-shell h-(--room-h) w-(--room-w) overflow-hidden rounded-xl border-4 border-room-frame p-(--wall-w) shadow-room [image-rendering:pixelated]">
+          <div className="room-floor size-full border-4 border-room-frame rounded-lg" />
         </section>
 
         <p className="mt-6 text-center text-md text-fg-muted">
