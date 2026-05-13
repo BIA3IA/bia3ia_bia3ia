@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+
+:root {
+  /* Backgrounds */
+  --bg:        #0b0a10;
+  --bg-subtle: #12101a;
+  --bg-raised: #1a1726;
+
+  /* Foregrounds */
+  --fg:       #ede8f5;
+  --fg-muted: #9b91b8;
+  --fg-faint: #4e475f;
+
+  /* Accent — lavender-lilac */
+  --accent:       #c4a9f5;
+  --accent-dim:   #7c5cbf;
+  --accent-glow:  #c4a9f520;
+
+  /* Ink / border */
+  --border:       #2e2840;
+  --border-faint: #1e1b2e;
+
+  /* Functional */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* ─── Tailwind v4 theme bridge ───────────────────────────────────────────── */
+
+@theme inline {
+  --color-bg:           var(--bg);
+  --color-bg-subtle:    var(--bg-subtle);
+  --color-bg-raised:    var(--bg-raised);
+  --color-fg:           var(--fg);
+  --color-fg-muted:     var(--fg-muted);
+  --color-fg-faint:     var(--fg-faint);
+  --color-accent:       var(--accent);
+  --color-accent-dim:   var(--accent-dim);
+  --color-accent-glow:  var(--accent-glow);
+  --color-border:       var(--border);
+  --color-border-faint: var(--border-faint);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+p, li {
+  color: var(--fg-muted);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--fg);
+}
+
+code, kbd, pre {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875em;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--accent-glow);
+  color: var(--accent);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dim);
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
