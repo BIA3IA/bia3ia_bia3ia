@@ -1,3 +1,5 @@
+import "@/styles/game.css";
+
 import { IoSparkles } from "react-icons/io5";
 
 import { Badge } from "@/components/ui/badge";
@@ -6,8 +8,8 @@ import { Card } from "@/components/ui/card";
 export function GameRoom() {
   return (
     <main className="flex min-h-screen items-center justify-center overflow-hidden bg-bg p-6">
-      <div className="min-w-6xl flex flex-col items-center gap-3">
-        <Card className="min-h-12 w-full flex-row items-center justify-between border-surface-panel-border bg-surface-panel px-6 py-0 text-fg shadow-panel backdrop-blur-lg">
+      <div className="flex w-(--room-w) max-w-[calc(100vw-2rem)] flex-col items-center gap-3">
+        <Card className="flex min-h-12 w-full flex-row items-center justify-between border-surface-panel-border bg-surface-panel px-6 py-0 text-fg shadow-panel backdrop-blur-lg">
           <div className="flex items-center gap-2">
             <IoSparkles className="text-accent-soft" />
             <span className="font-mono text-xs tracking-[0.18em] text-fg">
@@ -25,6 +27,11 @@ export function GameRoom() {
             </Badge>
           </div>
         </Card>
+
+        <section className="relative h-(--room-h) w-(--room-w) overflow-hidden rounded-xl border-4 border-room-frame bg-room-bg shadow-room [image-rendering:pixelated]">
+          <div className="room-back-wall h-(--back-wall-h) border-b-4 border-room-frame bg-wall-a" />
+
+        </section>
 
         <p className="mt-6 text-center text-md text-fg-muted">
           Built somewhere between purple glow, caffeine and too many open tabs. — 2026

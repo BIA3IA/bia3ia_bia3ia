@@ -32,6 +32,11 @@
   --surface-panel-border: color-mix(in srgb, var(--accent-soft) 12%, transparent);
   --surface-panel-glow: color-mix(in srgb, var(--accent) 8%, transparent);
 
+  /* Room frame */
+  --room-frame: #3a2a4f;
+  --room-frame-inner: #120b1b;
+  --room-frame-glow: rgba(184, 137, 255, 0.18);
+
   /* Borders */
   --border: #342947;
   --border-faint: #211a30;
@@ -43,11 +48,21 @@
   --radius-app-xl: 28px;
 
   /* Game sizing */
-  --tile: 48px;
-  --room-cols: 20;
-  --room-rows: 12;
+  --tile: 40px;
+  --room-cols: 24;
+  --room-rows: 14;
   --room-w: calc(var(--tile) * var(--room-cols));
   --room-h: calc(var(--tile) * var(--room-rows));
+
+  --back-wall-h: calc(var(--tile) * 2.2);
+  --side-wall-w: calc(var(--tile) * 0.7);
+  --front-edge-h: calc(var(--tile) * 0.55);
+
+  --room-bg: #07040d;
+  --floor-a: #1a1028;
+  --floor-b: #241733;
+  --wall-a: #3a2750;
+  --wall-b: #21152f;
 }
 
 /* ─── Tailwind v4 theme bridge ───────────────────────────────────────────── */
@@ -77,6 +92,11 @@
   --color-surface-panel-border: var(--surface-panel-border);
   --color-surface-panel-glow: var(--surface-panel-glow);
   --shadow-panel: 0 0 24px var(--color-surface-panel-glow);
+
+  --color-room-frame: var(--room-frame);
+  --color-room-frame-inner: var(--room-frame-inner);
+  --color-room-frame-glow: var(--room-frame-glow);
+  --shadow-room: 0 0 0 2px var(--color-room-frame-inner), 0 0 42px var(--color-room-frame-glow);
 
   --color-border: var(--border);
   --color-border-faint: var(--border-faint);

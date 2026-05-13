@@ -1,0 +1,12 @@
+.room-back-wall {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 45%),
+    linear-gradient(180deg, var(--wall-a), var(--wall-b));
+  background-size:
+    var(--tile) var(--tile),
+    var(--tile) var(--tile),
+    100% 100%,
+    100% 100%;
+}
