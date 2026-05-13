@@ -4,18 +4,14 @@
  */
 import "./src/env.js"
 
-/** @type {import("next").NextConfig} */
-const config = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+import type { NextConfig } from "next"
+
+const config: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
   output: "standalone",
-  experimental: {
-    reactCompiler: true
-  }
+  reactCompiler: true,
 }
 
 export default config

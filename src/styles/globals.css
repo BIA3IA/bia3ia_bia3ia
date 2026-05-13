@@ -4,81 +4,155 @@
 
 :root {
   /* Backgrounds */
-  --bg:        #0b0a10;
-  --bg-subtle: #12101a;
-  --bg-raised: #1a1726;
+  --bg: #05030a;
+  --bg-subtle: #0b0712;
+  --bg-raised: #15101f;
+
+  /* Game / room colors */
+  --room-bg: #0a0612;
+  --floor-a: #171021;
+  --floor-b: #1f1630;
+  --wall-a: #2a173d;
+  --wall-b: #12091d;
 
   /* Foregrounds */
-  --fg:       #ede8f5;
-  --fg-muted: #9b91b8;
-  --fg-faint: #4e475f;
+  --fg: #f3edf9;
+  --fg-muted: #a89abd;
+  --fg-faint: #5d526d;
 
-  /* Accent — lavender-lilac */
-  --accent:       #c4a9f5;
-  --accent-dim:   #7c5cbf;
-  --accent-glow:  #c4a9f520;
+  /* Accent */
+  --accent: #b889ff;
+  --accent-soft: #d8c3ff;
+  --accent-dim: #7c4fd1;
+  --accent-deep: #3b1768;
+  --accent-glow: #b889ff26;
 
-  /* Ink / border */
-  --border:       #2e2840;
-  --border-faint: #1e1b2e;
+  /* Panels */
+  --surface-panel: color-mix(in srgb, var(--room-bg) 72%, transparent);
+  --surface-panel-border: color-mix(in srgb, var(--accent-soft) 12%, transparent);
+  --surface-panel-glow: color-mix(in srgb, var(--accent) 8%, transparent);
 
-  /* Functional */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Borders */
+  --border: #342947;
+  --border-faint: #211a30;
+
+  /* Radius */
+  --radius-app-sm: 6px;
+  --radius-app-md: 12px;
+  --radius-app-lg: 20px;
+  --radius-app-xl: 28px;
+
+  /* Game sizing */
+  --tile: 48px;
+  --room-cols: 20;
+  --room-rows: 12;
+  --room-w: calc(var(--tile) * var(--room-cols));
+  --room-h: calc(var(--tile) * var(--room-rows));
 }
 
 /* ─── Tailwind v4 theme bridge ───────────────────────────────────────────── */
 
 @theme inline {
-  --color-bg:           var(--bg);
-  --color-bg-subtle:    var(--bg-subtle);
-  --color-bg-raised:    var(--bg-raised);
-  --color-fg:           var(--fg);
-  --color-fg-muted:     var(--fg-muted);
-  --color-fg-faint:     var(--fg-faint);
-  --color-accent:       var(--accent);
-  --color-accent-dim:   var(--accent-dim);
-  --color-accent-glow:  var(--accent-glow);
-  --color-border:       var(--border);
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-raised: var(--bg-raised);
+
+  --color-room-bg: var(--room-bg);
+  --color-floor-a: var(--floor-a);
+  --color-floor-b: var(--floor-b);
+  --color-wall-a: var(--wall-a);
+  --color-wall-b: var(--wall-b);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-glow: var(--accent-glow);
+
+  --color-surface-panel: var(--surface-panel);
+  --color-surface-panel-border: var(--surface-panel-border);
+  --color-surface-panel-glow: var(--surface-panel-glow);
+  --shadow-panel: 0 0 24px var(--color-surface-panel-glow);
+
+  --color-border: var(--border);
   --color-border-faint: var(--border-faint);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
+  --radius-sm: var(--radius-app-sm);
+  --radius-md: var(--radius-app-md);
+  --radius-lg: var(--radius-app-lg);
+  --radius-xl: var(--radius-app-xl);
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
-  background-color: var(--bg);
+  min-height: 100%;
+  background: var(--bg);
   color: var(--fg);
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100dvh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(184, 137, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 72%, rgba(124, 79, 209, 0.16), transparent 32%),
+    linear-gradient(180deg, #05030a 0%, #08040f 100%);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
 }
 
 /* ─── Typography ─────────────────────────────────────────────────────────── */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--fg);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--fg);
 }
 
-p, li {
+p,
+li {
   color: var(--fg-muted);
   line-height: 1.7;
 }
@@ -86,14 +160,16 @@ p, li {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 a:hover {
   color: var(--fg);
 }
 
-code, kbd, pre {
+code,
+kbd,
+pre {
   font-family: var(--font-mono), monospace;
   font-size: 0.875em;
 }
@@ -101,8 +177,8 @@ code, kbd, pre {
 /* ─── Selection ──────────────────────────────────────────────────────────── */
 
 ::selection {
-  background-color: var(--accent-glow);
-  color: var(--accent);
+  background: var(--accent-glow);
+  color: var(--accent-soft);
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────────────────────── */
@@ -118,7 +194,7 @@ code, kbd, pre {
 
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 99px;
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -130,5 +206,18 @@ code, kbd, pre {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-app-sm);
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
