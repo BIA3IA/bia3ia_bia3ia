@@ -63,6 +63,22 @@ Pippistrelli
 
 I tarocchi -> qualcuno che ti legge i tarocchi e ti dice cose tipo "non sei pronto per questa cosa" oppure "sei pronto per questa cosa"
 
+1. Non si sa cosa rappresenti la persona che entra nel sito, un curioso che vuole scoprire un mondo che non conosce, che ha trovato il villaggio. Che poi appunto prende possesso di Bianca.
+2. Bianca lo sa e non lo sa, rompe un po il 4o muto fa un po finta di nulla, poi magari dopo tanto tempo o in una situazione molto specifica dice al visitatore che ora dovrebbe proprio andare via perché ryuk sta iniziando ad agitarsi o una roba del genere. 
+3. Gli NPPC sanno molte cose che tengono un po'nascoste, c'é chi fa finta di nulla, chi dice cose tipo sempre Bianca quella li che porta visitatori, chi dice Ma ciao Bianca oggi il tempo scorre o sta fermo? COme se fosse veramente bianca.
+4. Il mondo é vivo, la gente si muove, va a casa puo piovere, ryuk potrebbe fare cose.
+5. Il tempo é un grande jolly, é come se fosse rotto, non si capisce se scorre se va in avanti o indietro, lento o veloce
+6. Rompiamo tanto la 4a parete, esattamente come hai detto tu. 
+7.  Il villaggio puo cambiare, ma non sono sicura se voglio prenda questa piega. Magari si. 
+8. Secondo me tipo 10 15 edifici piu bosco lago cimitero osservatorio etc piazza caffe etc come hai detto tu li sarebbe piu che ottimo. 
+
+9. Gli abitanti ci sono, ma sono tipo magari una 10ina.
+10. I personaggi sono umani streghe spiriti, la morte, gatti, cose a caso che parlano, robot etc
+11. Ryuk é come se fosse un dio, un creatore, lui sa sempre tutto, non gli interessa o gli interessa a pezzi, a lui basta che bianca sia contenta e salva. 
+12. Siamo dolceamari esatto, non tristi. Strambi, dolce amari. 
+13. I l giocatore non perde, se no non ha senso. 
+14. Sono strettamente legate. Incantesimi sono codice, le pozioni compilano, git é un rituale, il computer gira a incantesimi non a comandi etc
+15.  Io direi che il tema é che tutto é incompleto, niente é giá finito ma tuttto evolve e anche nell'evoluzione le cose sono belle, non solo da complete.
 
 
 REGOLE:
