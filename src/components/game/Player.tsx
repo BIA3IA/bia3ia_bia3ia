@@ -2,13 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Direction = "up" | "down" | "left" | "right";
+type Direction =
+    | "north"
+    | "south"
+    | "east"
+    | "west"
+    | "north_east"
+    | "north_west"
+    | "south_east"
+    | "south_west";
 
 type PlayerState = {
     x: number;
     y: number;
     direction: Direction;
     walking: boolean;
+    running: boolean; // non lo sto usando ma magari poi mi serve 
 };
 
 const PLAYER_SIZE = 148;
@@ -28,10 +37,14 @@ const directionByKey = {
 
 // Idle sprite paths for each direction
 const idleSpriteByDirection: Record<Direction, string> = {
-    up: "/sprites/idle/north.png",
-    down: "/sprites/idle/south.png",
-    left: "/sprites/idle/west.png",
-    right: "/sprites/idle/east.png",
+    north: "/sprites/idle/north.png",
+    south: "/sprites/idle/south.png",
+    west: "/sprites/idle/west.png",
+    east: "/sprites/idle/east.png",
+    north_west: "/sprites/idle/north_west.png",
+    north_east: "/sprites/idle/north_east.png",
+    south_west: "/sprites/idle/south_west.png",
+    south_east: "/sprites/idle/south_east.png",
 };
 
 const southWalkingFrames = Array.from(
@@ -58,12 +71,54 @@ const northWalkingFrames = Array.from(
         `/sprites/walking/north/frame_${String(index)}.png`,
 );
 
+const northEastWalkingFrames = Array.from(
+    { length: 8 },
+    (_, index) =>
+        `/sprites/walking/north-east/frame_${String(index)}.png`,
+);
+
+const northWestWalkingFrames = Array.from(
+    { length: 8 },
+    (_, index) =>
+        `/sprites/walking/north-west/frame_${String(index)}.png`,
+);
+
+const southEastWalkingFrames = Array.from(
+    { length: 8 },
+    (_, index) =>
+        `/sprites/walking/south-east/frame_${String(index)}.png`,
+);
+
+const southWestWalkingFrames = Array.from(
+    { length: 8 },
+    (_, index) =>
+        `/sprites/walking/south-west/frame_${String(index)}.png`,
+);
+
 const walkingFramesByDirection: Partial<Record<Direction, string[]>> = {
-    down: southWalkingFrames,
-    right: eastWalkingFrames,
-    left: westWalkingFrames,
-    up: northWalkingFrames,
+    south: southWalkingFrames,
+    east: eastWalkingFrames,
+    west: westWalkingFrames,
+    north: northWalkingFrames,
+    north_west: northWestWalkingFrames,
+    north_east: northEastWalkingFrames,
+    south_west: southWestWalkingFrames,
+    south_east: southEastWalkingFrames,
 };
+
+function getDirection(horizontal: number, vertical: number): Direction {
+    if (horizontal === 0 && vertical < 0) return "north";
+    if (horizontal > 0 && vertical < 0) return "north_east";
+    if (horizontal > 0 && vertical === 0) return "east";
+    if (horizontal > 0 && vertical > 0) return "south_east";
+    if (horizontal === 0 && vertical > 0) return "south";
+    if (horizontal < 0 && vertical > 0) return "south_west";
+    if (horizontal < 0 && vertical === 0) return "west";
+    if (horizontal < 0 && vertical < 0) return "north_west";
+
+    // Default to south
+    return "south";
+}
 
 export function Player() {
 
@@ -71,8 +126,9 @@ export function Player() {
     const [player, setPlayer] = useState<PlayerState>({
         x: 300,
         y: 220,
-        direction: "down",
+        direction: "south",
         walking: false,
+        running: false,
     });
 
     const [walkingFrame, setWalkingFrame] = useState(0);
@@ -81,14 +137,23 @@ export function Player() {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (!(event.code in directionByKey)) return;
+            const isDirectionKey = event.code in directionByKey;
+            const isRunKey =
+                event.code === "ShiftLeft" || event.code === "ShiftRight";
+
+            if (!isDirectionKey && !isRunKey) return;
 
             event.preventDefault();
             pressedKeys.current.add(event.code);
         };
 
         const handleKeyUp = (event: KeyboardEvent) => {
-            if (!(event.code in directionByKey)) return;
+            const isDirectionKey = event.code in directionByKey;
+
+            const isRunKey =
+                event.code === "ShiftLeft" || event.code === "ShiftRight";
+
+            if (!isDirectionKey && !isRunKey) return;
 
             pressedKeys.current.delete(event.code);
         };
@@ -114,16 +179,15 @@ export function Player() {
                         : currentPlayer,
                 );
             } else {
+
+                const isRunning =
+                    pressedKeys.current.has("ShiftLeft") ||
+                    pressedKeys.current.has("ShiftRight");
+
+                const speed = isRunning ? PLAYER_SPEED * 2 : PLAYER_SPEED;
                 const vectorLength = Math.hypot(horizontal, vertical);
-                const movement = (PLAYER_SPEED * deltaTime) / vectorLength;
-                const direction: Direction =
-                    horizontal < 0
-                        ? "left"
-                        : horizontal > 0
-                            ? "right"
-                            : vertical < 0
-                                ? "up"
-                                : "down";
+                const movement = (speed * deltaTime) / vectorLength;
+                const direction: Direction = getDirection(horizontal, vertical);
 
                 setPlayer((currentPlayer) => ({
                     x: Math.max(
@@ -142,6 +206,7 @@ export function Player() {
                     ),
                     direction,
                     walking: true,
+                    running: isRunning,
                 }));
             }
 
@@ -162,7 +227,7 @@ export function Player() {
 
     const walkingFrames = walkingFramesByDirection[player.direction];
 
-    // walking south
+    // walking
     useEffect(() => {
         if (!player.walking || !walkingFrames) return;
 
