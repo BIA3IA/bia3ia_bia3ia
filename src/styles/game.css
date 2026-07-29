@@ -1,0 +1,18 @@
+.game-room {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.player {
+  position: absolute;
+  z-index: 2;
+
+  width: 248px;
+  height: 248px;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+}
