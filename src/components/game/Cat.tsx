@@ -12,7 +12,7 @@ type Direction =
     | "south_east"
     | "south_west";
 
-type PlayerState = {
+type CatState = {
     x: number;
     y: number;
     direction: Direction;
@@ -20,9 +20,9 @@ type PlayerState = {
     running: boolean; // non lo sto usando ma magari poi mi serve 
 };
 
-const PLAYER_SIZE = 248;
-const PLAYER_SPEED = 160;
-const WALKING_FRAME_COUNT = 8;
+const CAT_SIZE = 128;
+const CAT_SPEED = 160;
+const WALKING_FRAME_COUNT = 6;
 
 const directionByKey = {
     KeyW: "up",
@@ -36,7 +36,7 @@ const directionByKey = {
     ArrowRight: "right",
 } as const;
 
-const IDLE_SPRITE_PATH = "/sprites/player/idle.png";
+const IDLE_SPRITE_PATH = "/sprites/cat/idle.png";
 const IDLE_SPRITE_COLUMNS = 4;
 const IDLE_SPRITE_ROWS = 2;
 
@@ -52,14 +52,14 @@ const idleFrameByDirection: Record<Direction, readonly [number, number]> = {
 };
 
 const walkingSpriteByDirection: Record<Direction, string> = {
-    north: "/sprites/player/walk_north.png",
-    south: "/sprites/player/walk_south.png",
-    east: "/sprites/player/walk_east.png",
-    west: "/sprites/player/walk_west.png",
-    north_west: "/sprites/player/walk_north_west.png",
-    north_east: "/sprites/player/walk_north_east.png",
-    south_west: "/sprites/player/walk_south_west.png",
-    south_east: "/sprites/player/walk_south_east.png",
+    north: "/sprites/cat/walk_north.png",
+    south: "/sprites/cat/walk_south.png",
+    east: "/sprites/cat/walk_east.png",
+    west: "/sprites/cat/walk_west.png",
+    north_west: "/sprites/cat/walk_north_west.png",
+    north_east: "/sprites/cat/walk_north_east.png",
+    south_west: "/sprites/cat/walk_south_west.png",
+    south_east: "/sprites/cat/walk_south_east.png",
 };
 
 function getDirection(horizontal: number, vertical: number): Direction {
@@ -76,12 +76,12 @@ function getDirection(horizontal: number, vertical: number): Direction {
     return "south";
 }
 
-export function Player() {
+export function Cat() {
 
-    // Itial player state
-    const [player, setPlayer] = useState<PlayerState>({
-        x: 300,
-        y: 220,
+    // Itial cat state
+    const [cat, setCat] = useState<CatState>({
+        x: 450,
+        y: 320,
         direction: "south",
         walking: false,
         running: false,
@@ -114,8 +114,8 @@ export function Player() {
             pressedKeys.current.delete(event.code);
         };
 
-        // Animation loop to move the player
-        const movePlayer = (currentTime: number) => {
+        // Animation loop to move the cat
+        const moveCat = (currentTime: number) => {
             const previousTime = lastFrameTime.current ?? currentTime;
             // Seconds from last frame, capped to avoid jumps
             const deltaTime = Math.min((currentTime - previousTime) / 1000, 0.05);
@@ -129,10 +129,10 @@ export function Player() {
                 (pressedKeys.current.has("KeyW") || pressedKeys.current.has("ArrowUp") ? 1 : 0);
 
             if (horizontal === 0 && vertical === 0) {
-                setPlayer((currentPlayer) =>
-                    currentPlayer.walking
-                        ? { ...currentPlayer, walking: false, running: false }
-                        : currentPlayer,
+                setCat((currentCat) =>
+                    currentCat.walking
+                        ? { ...currentCat, walking: false }
+                        : currentCat,
                 );
             } else {
 
@@ -140,24 +140,24 @@ export function Player() {
                     pressedKeys.current.has("ShiftLeft") ||
                     pressedKeys.current.has("ShiftRight");
 
-                const speed = isRunning ? PLAYER_SPEED * 2 : PLAYER_SPEED;
+                const speed = isRunning ? CAT_SPEED * 2 : CAT_SPEED;
                 const vectorLength = Math.hypot(horizontal, vertical);
                 const movement = (speed * deltaTime) / vectorLength;
                 const direction: Direction = getDirection(horizontal, vertical);
 
-                setPlayer((currentPlayer) => ({
+                setCat((currentCat) => ({
                     x: Math.max(
                         0,
                         Math.min(
-                            currentPlayer.x + horizontal * movement,
-                            window.innerWidth - PLAYER_SIZE,
+                            currentCat.x + horizontal * movement,
+                            window.innerWidth - CAT_SIZE,
                         ),
                     ),
                     y: Math.max(
                         0,
                         Math.min(
-                            currentPlayer.y + vertical * movement,
-                            window.innerHeight - PLAYER_SIZE,
+                            currentCat.y + vertical * movement,
+                            window.innerHeight - CAT_SIZE,
                         ),
                     ),
                     direction,
@@ -166,10 +166,10 @@ export function Player() {
                 }));
             }
 
-            animationFrame = window.requestAnimationFrame(movePlayer);
+            animationFrame = window.requestAnimationFrame(moveCat);
         };
 
-        let animationFrame = window.requestAnimationFrame(movePlayer);
+        let animationFrame = window.requestAnimationFrame(moveCat);
 
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
@@ -182,36 +182,36 @@ export function Player() {
     }, []);
 
     useEffect(() => {
-        if (!player.walking) return;
+        if (!cat.walking) return;
 
         const interval = window.setInterval(() => {
             setWalkingFrame((currentFrame) =>
                 (currentFrame + 1) % WALKING_FRAME_COUNT,
             );
-        }, player.running ? 50 : 100);
+        }, cat.running ? 50 : 100);
 
         return () => window.clearInterval(interval);
-    }, [player.running, player.walking]);
+    }, [cat.running, cat.walking]);
 
-    const [idleColumn, idleRow] = idleFrameByDirection[player.direction];
-    const spritePath = player.walking
-        ? walkingSpriteByDirection[player.direction]
+    const [idleColumn, idleRow] = idleFrameByDirection[cat.direction];
+    const spritePath = cat.walking
+        ? walkingSpriteByDirection[cat.direction]
         : IDLE_SPRITE_PATH;
 
     return (
         <div
-            className="player"
+            className="cat"
             style={{
-                left: player.x,
-                top: player.y,
+                left: cat.x,
+                top: cat.y,
                 backgroundImage: `url("${spritePath}")`,
-                backgroundSize: player.walking
-                    ? `${PLAYER_SIZE * WALKING_FRAME_COUNT}px ${PLAYER_SIZE}px`
-                    : `${PLAYER_SIZE * IDLE_SPRITE_COLUMNS}px ${PLAYER_SIZE * IDLE_SPRITE_ROWS
+                backgroundSize: cat.walking
+                    ? `${CAT_SIZE * WALKING_FRAME_COUNT}px ${CAT_SIZE}px`
+                    : `${CAT_SIZE * IDLE_SPRITE_COLUMNS}px ${CAT_SIZE * IDLE_SPRITE_ROWS
                     }px`,
-                backgroundPosition: player.walking
-                    ? `${-walkingFrame * PLAYER_SIZE}px 0`
-                    : `${-idleColumn * PLAYER_SIZE}px ${-idleRow * PLAYER_SIZE
+                backgroundPosition: cat.walking
+                    ? `${-walkingFrame * CAT_SIZE}px 0`
+                    : `${-idleColumn * CAT_SIZE}px ${-idleRow * CAT_SIZE
                     }px`,
             }}
             aria-hidden="true"

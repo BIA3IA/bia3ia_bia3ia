@@ -16,3 +16,15 @@
   background-size: 100% 100%;
   image-rendering: pixelated;
 }
+
+.cat {
+  position: absolute;
+  z-index: 2;
+
+  width: 128px;
+  height: 128px;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+}
