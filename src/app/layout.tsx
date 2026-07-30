@@ -3,7 +3,7 @@ import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "bia3ia",
-  description: "A magic room.",
+  description: "Bianca's Very Normal Place.",
 };
 
 export default function RootLayout({
