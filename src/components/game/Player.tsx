@@ -62,6 +62,17 @@ const walkingSpriteByDirection: Record<Direction, string> = {
     south_east: "/sprites/player/walk_south_east.png",
 };
 
+const runningSpriteByDirection: Record<Direction, string> = {
+    north: "/sprites/player/running_north.png",
+    south: "/sprites/player/running_south.png",
+    east: "/sprites/player/running_east.png",
+    west: "/sprites/player/running_west.png",
+    north_west: "/sprites/player/running_north_west.png",
+    north_east: "/sprites/player/running_north_east.png",
+    south_west: "/sprites/player/running_south_west.png",
+    south_east: "/sprites/player/running_south_east.png",
+};
+
 function getDirection(horizontal: number, vertical: number): Direction {
     if (horizontal === 0 && vertical < 0) return "north";
     if (horizontal > 0 && vertical < 0) return "north_east";
@@ -194,9 +205,11 @@ export function Player() {
     }, [player.running, player.walking]);
 
     const [idleColumn, idleRow] = idleFrameByDirection[player.direction];
-    const spritePath = player.walking
-        ? walkingSpriteByDirection[player.direction]
-        : IDLE_SPRITE_PATH;
+    const spritePath = !player.walking
+        ? IDLE_SPRITE_PATH
+        : player.running
+            ? runningSpriteByDirection[player.direction]
+            : walkingSpriteByDirection[player.direction];
 
     return (
         <div
