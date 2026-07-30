@@ -17,7 +17,6 @@ type CatState = {
     y: number;
     direction: Direction;
     walking: boolean;
-    running: boolean; // non lo sto usando ma magari poi mi serve 
 };
 
 const CAT_SIZE = 128;
@@ -56,10 +55,10 @@ const walkingSpriteByDirection: Record<Direction, string> = {
     south: "/sprites/cat/walk_south.png",
     east: "/sprites/cat/walk_east.png",
     west: "/sprites/cat/walk_west.png",
-    north_west: "/sprites/cat/walk_north_west.png",
-    north_east: "/sprites/cat/walk_north_east.png",
-    south_west: "/sprites/cat/walk_south_west.png",
-    south_east: "/sprites/cat/walk_south_east.png",
+    north_east: "/sprites/cat/walk_north.png",
+    north_west: "/sprites/cat/walk_north.png",
+    south_east: "/sprites/cat/walk_east.png",
+    south_west: "/sprites/cat/walk_west.png"
 };
 
 function getDirection(horizontal: number, vertical: number): Direction {
@@ -84,7 +83,6 @@ export function Cat() {
         y: 320,
         direction: "south",
         walking: false,
-        running: false,
     });
 
     const [walkingFrame, setWalkingFrame] = useState(0);
@@ -94,10 +92,8 @@ export function Cat() {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             const isDirectionKey = event.code in directionByKey;
-            const isRunKey =
-                event.code === "ShiftLeft" || event.code === "ShiftRight";
 
-            if (!isDirectionKey && !isRunKey) return;
+            if (!isDirectionKey) return;
 
             event.preventDefault();
             pressedKeys.current.add(event.code);
@@ -106,10 +102,7 @@ export function Cat() {
         const handleKeyUp = (event: KeyboardEvent) => {
             const isDirectionKey = event.code in directionByKey;
 
-            const isRunKey =
-                event.code === "ShiftLeft" || event.code === "ShiftRight";
-
-            if (!isDirectionKey && !isRunKey) return;
+            if (!isDirectionKey) return;
 
             pressedKeys.current.delete(event.code);
         };
@@ -136,13 +129,8 @@ export function Cat() {
                 );
             } else {
 
-                const isRunning =
-                    pressedKeys.current.has("ShiftLeft") ||
-                    pressedKeys.current.has("ShiftRight");
-
-                const speed = isRunning ? CAT_SPEED * 2 : CAT_SPEED;
                 const vectorLength = Math.hypot(horizontal, vertical);
-                const movement = (speed * deltaTime) / vectorLength;
+                const movement = (CAT_SPEED * deltaTime) / vectorLength;
                 const direction: Direction = getDirection(horizontal, vertical);
 
                 setCat((currentCat) => ({
@@ -162,7 +150,6 @@ export function Cat() {
                     ),
                     direction,
                     walking: true,
-                    running: isRunning,
                 }));
             }
 
@@ -188,10 +175,10 @@ export function Cat() {
             setWalkingFrame((currentFrame) =>
                 (currentFrame + 1) % WALKING_FRAME_COUNT,
             );
-        }, cat.running ? 50 : 100);
+        }, 100);
 
         return () => window.clearInterval(interval);
-    }, [cat.running, cat.walking]);
+    }, [cat.walking]);
 
     const [idleColumn, idleRow] = idleFrameByDirection[cat.direction];
     const spritePath = cat.walking

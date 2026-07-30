@@ -87,3 +87,7 @@ ogni tanto piove
 ci sono personaggi secondari che parlano
 é un villaggetto, all'esterno c'é un bosco tipo, un cimitero, un laghetto
 é una sorta di magia mista tecnologia
+
+Le case possono magari essere in una sorta di tail quadrato e 
+aprendo e chiudedndo la pagina cambiano posizione, ma bisogna capire come con la
+posizione dei sentieri che magari comunque devono tipo avere senso
